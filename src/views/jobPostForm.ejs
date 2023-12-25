@@ -1,0 +1,74 @@
+<div class="py-5">
+    <form action="/login" method="post" class="my-5 w-50 py-2 px-5 mx-auto"  style="background-color: white; box-shadow: 1px 1px 6px 4px rgba(0, 0, 0, 0.5); border-radius: 8px;">
+        <p class="fs-3 text-center">Post a new job</p>
+        <div class="mb-3 px-1 d-flex align-items-center border  border-secondary rounded-2">
+            <select name="jobcategory"class="w-100 p-1 text-secondary" style=" border: none; outline:none;">
+                <option value="">select job category</option>
+                <option value="Tech">Tech</option>
+                <option value="Non Tech">Non Tech</option>
+            </select>
+        </div>
+
+        <div class="mb-3 px-1 d-flex align-items-center border  border-secondary rounded-2">
+            <select name="designation" class="w-100 p-1 text-secondary" style=" border: none; outline:none;">
+                <option value="">select job designation</option>
+                <option value="Tech">HR</option>
+                <option value="Non Tech">SDE</option>
+                <option value="Non Tech">DevOps</option>
+                <option value="Non Tech">MERN Developer</option>
+                <option value="Non Tech">MARN Developer</option>
+                <option value="Non Tech">Front-End Developer</option>
+                <option value="Non Tech">Back-End Developer</option>
+                <option value="Non Tech">Full-Stack Developer</option>
+            </select>
+        </div>
+
+        <div class="mb-3 d-flex align-items-center border  border-secondary rounded-2">
+          <input type="text" class="form-control"  placeholder="Job Location" style=" border: none; outline:none;">
+        </div>
+        <div class="mb-3 d-flex align-items-center border  border-secondary rounded-2">
+          <input type="text" class="form-control" placeholder="Company Name" style=" border: none; outline:none;">
+        </div>
+        <div class="mb-3 d-flex align-items-center">
+          <input type="email" class="form-control border-secondary me-1" placeholder="Salary">
+          <input type="email" class="form-control border-secondary ms-1" placeholder="Total Positions">
+        </div>
+        <div class="mb-3 d-flex align-items-center border border-secondary rounded-2">
+            <div class=" d-flex flex-column overflow-y-scroll w-50 p-1" style="height:100px;">
+                <span>
+                    <input type="checkbox" value="React" id="React" class="mx-1">
+                    <label for="React">React</label>
+                </span>
+                <span>
+                    <input type="checkbox" value="NodeJs" id="NodeJs" class="mx-1">
+                    <label for="NodeJs">NodeJs</label>
+                </span>
+                <span>
+                    <input type="checkbox" value="Express" id="Express" class="mx-1">
+                    <label for="Express">Express</label>
+                </span>
+                <span>
+                    <input type="checkbox" value="MongoDB" id="MongoDB" class="mx-1">
+                    <label for="MongoDB">MongoDB</label>
+                </span>
+                <span>
+                    <input type="checkbox" value="DSA" id="DSA" class="mx-1">
+                    <label for="DSA">DSA</label>
+                </span>
+                <span>
+                    <input type="checkbox" value="JAVA" id="JAVA" class="mx-1">
+                    <label for="JAVA">JAVA</label>
+                </span>
+                <span>
+                    <input type="checkbox" value="BootStrap" id="BootStrap" class="mx-1">
+                    <label for="BootStrap">BootStrap</label>
+                </span>
+            </div>
+            <div class="d-flex flex-column align-items-center w-50 h-100 py-3">
+                <label for="apply-by">Apply By</label>
+                <input type="date" class="form-control w-100 mt-2" id="apply-by" style=" border: none; outline:none;">
+              </div>
+        </div>
+        <button type="submit" class="btn btn-warning text-light px-4 py-1 mb-2">Submit</button>
+      </form>
+</div>
