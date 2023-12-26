@@ -1,23 +1,25 @@
 <div class="d-flex flex-wrap justify-content-center p-3 my-5" style="background-color:#1ea8c4; min-height: 85vh;">
-    <div class="card m-3" style="width: 18rem; height:100%;">
+    <%jobs.forEach((job)=>{%>
+      <div class="card m-3" style="width: 18rem; height:100%;">
         <div class="card-body">
           <div class="d-flex">
-            <a href="#" class="btn btn-secondary px-2 py-0" style="cursor:default;">Actively hiring <i class="fa-solid fa-user"></i></a>
+            <a href="#" class="btn btn-secondary px-3 py-1" style="cursor:default; opacity:0.7;">Actively hiring <i class="fa-solid fa-user"></i></a>
           </div>
-          <h5 class="card-title my-2 text-danger">Coding Ninjas</h5>
-          <h6 class="card-subtitle my-2 text-body-secondary">Non-Tech <span class="text-danger">HR</span></h6>
+          <h5 class="card-title my-2 text-primary"><%= job.companyName %></h5>
+          <h6 class="card-subtitle my-2 text-body-secondary"><%= job.jobCategory %> <span class="text-danger"><%= job.designation %></span></h6>
           <div class="d-flex my-3">
             <i class="fa-solid fa-location-dot mt-1 me-1 text-success"></i>
-            <p class="mb-0">Gurgaon HR IND Remote</p>
+            <p class="mb-0"><%=job.location%></p>
           </div>
-          <p class="card-text"><i class="fa-solid fa-indian-rupee-sign"></i> 14-20 LPA</p>
+          <p class="card-text"><i class="fa-solid fa-indian-rupee-sign"></i> <%=job.salary%></p>
           <div>
-            <a href="#" class="btn btn-outline-success my-1" style="cursor:default;">React.js</a>
-            <a href="#" class="btn btn-outline-success" style="cursor:default;">Node.js</a>
-            <a href="#" class="btn btn-outline-success" style="cursor:default;">Express</a>
-            <a href="#" class="btn btn-outline-success" style="cursor:default;" >Mongo DB</a>
+            <%job.skills.forEach((skill)=>{%>
+              <a href="#" class="btn btn-outline-success my-1 py-0" style="cursor:default;"><%=skill%></a>
+            <%})%>
           </div>
-          <a href="/job" class="btn btn-outline-primary fs-5 mx-auto d-block my-2 py-1">View details</a>
+          <a href="/job/<%=job.id%>" class="btn btn-outline-primary fs-5 mx-auto d-block my-2 py-1">View details</a>
         </div>
     </div>
+    <%})%>
+    
 </div>

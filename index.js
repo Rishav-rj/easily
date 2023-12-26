@@ -2,6 +2,7 @@ import express from "express";
 import path from "path";
 import expressEjsLayouts from "express-ejs-layouts";
 import UserController from "./src/controllers/user.controller.js";
+import JobsController from "./src/controllers/jobs.controller.js";
 import {userValidation} from "./src/middlewares/userValidation.middleware.js"
 import session from "express-session";
 import { auth } from "./src/middlewares/userAuth.middleware.js";
@@ -27,15 +28,11 @@ app.use(expressEjsLayouts)
 app.set('view engine', 'ejs')
 app.set('views', path.resolve("src", "views"));
 
-app.get('/', (req, res)=>{
-    res.render("home", {user:null});
-})
-
-
 
 const usersController = new UserController();
+const jobsController = new JobsController();
 
-app.get('/home',  usersController.getHome)
+app.get('/',  usersController.getHome)
 
 app.post('/', userValidation,  usersController.registerUser)
 
@@ -45,9 +42,17 @@ app.post('/login', usersController.loginUser)
 
 app.get('/logout', usersController.logout)
 
-app.get('/jobs', usersController.getJobs)
+app.get('/jobs', jobsController.getJobs)
 
-app.get('/postjob', auth, usersController.postjob);
+app.get('/postjob', auth, jobsController.getpostjob);
 
-app.get('/job', usersController.getJob)
+app.post('/postjob', auth, jobsController.postjob);
+
+app.get('/job/:id', jobsController.getJob)
+
+app.get('/job/update/:id',auth, jobsController.getUpdateJob)
+
+app.post('/job/update/',auth, jobsController.postUpdateJob)
+
+app.get('/job/delete/:id',auth, jobsController.deleteJob)
 

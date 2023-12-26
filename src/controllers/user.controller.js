@@ -10,13 +10,6 @@ export default class UserController {
         res.render('login', {errorMsg:null})
     }
     
-    getJobs(req, res){
-        res.render('jobs', {userEmail: req.session.userEmail, userName:req.session.userName})
-    }
-    
-    getJob(req, res){
-        res.render('jobDetail', {userEmail: req.session.userEmail, userName:req.session.userName})
-    }
 
     registerUser(req, res){
         const user = req.body
@@ -33,7 +26,7 @@ export default class UserController {
         req.session.userEmail = email;
         let userName = UserModel.userName(req.session.userEmail)
         req.session.userName = userName
-        res.render('jobs', {userEmail: req.session.userEmail, userName});
+        res.redirect('/jobs');
     }
 
     logout(req, res) {
@@ -44,9 +37,5 @@ export default class UserController {
             res.redirect('/login');
           }
         });
-    }
-
-    postjob(req, res){
-        res.render("jobPostForm", {userEmail: req.session.userEmail, userName:req.session.userName})
     }
 }

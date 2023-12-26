@@ -8,18 +8,19 @@ export default class UserModel{
 
     static checkEmail(email){
         const emailExist =  users.find(user=> user.email == email);
-        console.log(users);
         return emailExist
     }
 
     static addUser(user){
+        const {name, email, password} = user;
         let newUser = new UserModel(
             users.length + 1,
-            user.name, 
-            user.email, 
-            user.password
+            name, 
+            email, 
+            password
         )
         users.push(newUser)
+        console.log(users);
     }
 
     static isUser(email, password){
@@ -35,4 +36,4 @@ export default class UserModel{
 }
 
 
-let users = [];
+var users = [];
