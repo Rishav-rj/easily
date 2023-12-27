@@ -27,6 +27,7 @@ export default class JobModel {
         const {companyName, jobCategory, designation, location, salary, position, skills, applyBy} = job;
         const id = jobs.length + 1;
         const jobPostDate =  moment(new Date()).format("YYYY-MM-DD hh:mm A");
+        const totalApplicants = applicants.length 
         const newJob = {
             id,
             companyName, 
@@ -38,6 +39,7 @@ export default class JobModel {
             skills, 
             applyBy,
             jobPostDate,
+            totalApplicants,
             applicants
         }
         jobs.push(newJob);
@@ -55,6 +57,12 @@ export default class JobModel {
         const index = jobs.findIndex(job => job.id == id);
         jobs.splice(index, 1);
     }
+
+    static addApplicant(id, name,email,phone,resume){
+        const job = jobs.find(job=> job.id == id)
+        job.applicants.push({name, email, phone, resume})
+        job.totalApplicants = job.applicants.length
+    }
 }
 
 
@@ -69,7 +77,18 @@ JobModel.addJob({
     position:2,
     skills:["React", "NodeJs", "Express", "MongoDB", "DSA"],
     applyBy:"2023-12-18",
-},3)
+},[{
+    "name": "Rishav Jaiswal",
+    "email": "rishavjaiswal02@gmail.com",
+    "phone":8709438667,
+    "resume":"/resumes/resume.2.pdf"
+},{
+    "name": "Chotu Sharma",
+    "email": "Chotu@gmail.com",
+    "phone":8789456546,
+    "resume":"/resumes/resume.1.pdf"
+}])
+
 JobModel.addJob({
     companyName:"Coding Ninjas", 
     jobCategory:"Tech",
@@ -79,7 +98,13 @@ JobModel.addJob({
     position:2,
     skills:["React", "NodeJs", "Express", "MongoDB"],
     applyBy:"2023-12-16",
-},2)
+},[{
+    "name": "Rishav Jaiswal",
+    "email": "rishav@gmail.com",
+    "phone":8709438655,
+    "resume":"/resumes/resume.1.pdf"
+}])
+
 JobModel.addJob({
     companyName:"Amazon", 
     jobCategory:"Non Tech",
@@ -89,4 +114,9 @@ JobModel.addJob({
     position:2,
     skills:["React", "NodeJs", "Express", "DSA"],
     applyBy:"2023-12-29",
-},4)
+},[{
+    "name": "Rishav Jaiswal",
+    "email": "rishav@gmail.com",
+    "phone":8709438655,
+    "resume":"/resumes/resume.1.pdf"
+}])

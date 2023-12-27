@@ -1,5 +1,6 @@
 import { render } from "ejs";
 import JobModel from "../models/job.model.js";
+import {sendConfirmation} from "../middlewares/confirmationEmail.middleware.js"
 
 export default class JobsController {
 
@@ -15,7 +16,7 @@ export default class JobsController {
     postjob(req, res){
         const job = req.body;
         const jobs = JobModel.addJob(job,0);
-        res.render('jobs', {jobs:jobs})
+        res.redirect('/jobs')
     }
 
     getJob(req, res){
@@ -53,7 +54,20 @@ export default class JobsController {
         }
     }
 
-    
+    getApplicants(req, res){
+        const id = req.params.id
+        const job = JobModel.getJobById(id);
+        res.render('applicants', {userEmail: req.session.userEmail, userName:req.session.userName, job})
+    }
+
+    postApplyJob(req, res){
+        const {name, email, phone} = req.body
+        const resume = '/resumes/' + req.file.filename
+        const id = req.params.id
+        JobModel.addApplicant(id, name, email, phone, resume)
+        sendConfirmation(email)
+        res.redirect(`/job/${id}`)
+    }
 
     
 

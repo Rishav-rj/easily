@@ -6,6 +6,7 @@ import JobsController from "./src/controllers/jobs.controller.js";
 import {userValidation} from "./src/middlewares/userValidation.middleware.js"
 import session from "express-session";
 import { auth } from "./src/middlewares/userAuth.middleware.js";
+import { uploadFile } from "./src/middlewares/resumeUpload.middleware.js";
 
 export const app = express();
 
@@ -55,4 +56,8 @@ app.get('/job/update/:id',auth, jobsController.getUpdateJob)
 app.post('/job/update/',auth, jobsController.postUpdateJob)
 
 app.get('/job/delete/:id',auth, jobsController.deleteJob)
+
+app.get('/job/applicants/:id', auth, jobsController.getApplicants)
+
+app.post('/job/apply/:id', uploadFile.single("resume"), jobsController.postApplyJob)
 

@@ -1,0 +1,29 @@
+<div class="p-3 my-5">
+  <table class="table table-striped">
+    <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Name</th>
+      <th scope="col">Email</th>
+      <th scope="col">Phone</th>
+      <th scope="col">Resume</th>
+    </tr>
+    </thead>
+    <tbody>
+      <% var i = 0;%>
+      <% job.applicants.forEach(ap =>{%>
+        <%i++%>
+        <tr>
+          <th scope="row"><%=i%></th>
+          <td><%=ap.name%></td>
+          <td><%=ap.email%></td>
+          <td><%=ap.phone%></td>
+          <td> <a href="<%=ap.resume%>" target="_blank" type="application/pdf" class="btn btn-primary py-0">View</a> </td>
+        </tr>
+      <%})%>
+      
+    </tbody>
+
+  </table>
+</div>
+
