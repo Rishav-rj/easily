@@ -10,6 +10,17 @@ const storageConfig = multer.diskStorage({
     },
 });
 
+const fileFilter = (req, file, cb) => {
+    const allowedFileTypes = ['application/pdf'];
+    if (allowedFileTypes.includes(file.mimetype)) {
+        cb(null, true);
+    }else{
+        cb(null, false)
+    }
+};
+
+
 export const uploadFile = multer({
     storage:storageConfig,
+    fileFilter: fileFilter,
 })

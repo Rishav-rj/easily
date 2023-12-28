@@ -34,7 +34,7 @@
         <button class="btn btn-warning">Posted: <%=job.jobPostDate%></button>
     </div>
 
-    <!-- Job Application Form Start  -->
+    <!-- Job Application modal start -->
     <div class="modal fade mt-5" id="jobApplyForm" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
       <div class="modal-dialog">
       <div class="modal-content">
@@ -56,7 +56,7 @@
                   </div>
                   <div class="mb-3 d-flex align-items-center border rounded-2">
                     <label for="resume" class=" text-secondary py-1 px-3 border-end border-dark">Resume</label>
-                    <input type="file" class="form-control text-secondary" id="resume" name="resume" style="border: none; outline: none;">
+                    <input type="file" class="form-control text-secondary" id="resume" name="resume" accept="application/pdf" style="border: none; outline: none;">
                   </div>
                   <button type="submit" class="btn btn-primary text-light px-4 py-1">Submit</button>
               </form>

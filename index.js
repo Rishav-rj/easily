@@ -9,6 +9,8 @@ import { auth } from "./src/middlewares/userAuth.middleware.js";
 import { uploadFile } from "./src/middlewares/resumeUpload.middleware.js";
 import cookieParser from "cookie-parser";
 import { setLastVisit } from "./src/middlewares/lastVisit.middleware.js";
+import { JobPostValidation } from "./src/middlewares/JobPostValidation.middleware.js";
+import { applyJobValidation } from "./src/middlewares/applyJob.validation.middleware.js";
 
 export const app = express();
 
@@ -50,7 +52,7 @@ app.get('/jobs', jobsController.getJobs)
 
 app.get('/postjob', auth, jobsController.getpostjob);
 
-app.post('/postjob', auth, jobsController.postjob);
+app.post('/postjob', auth, JobPostValidation, jobsController.postjob);
 
 app.get('/job/:id', jobsController.getJob)
 
@@ -62,7 +64,7 @@ app.get('/job/delete/:id', auth, jobsController.deleteJob)
 
 app.get('/job/applicants/:id', auth, setLastVisit, jobsController.getApplicants)
 
-app.post('/job/apply/:id', uploadFile.single("resume"), jobsController.postApplyJob)
+app.post('/job/apply/:id', uploadFile.single("resume"), applyJobValidation, jobsController.postApplyJob)
 
 app.post('/search', jobsController.seachedJobs)
 
