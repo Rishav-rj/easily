@@ -20,7 +20,6 @@ export default class UserModel{
             password
         )
         users.push(newUser)
-        console.log(users);
     }
 
     static isUser(email, password){

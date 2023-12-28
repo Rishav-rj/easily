@@ -1,4 +1,6 @@
-import moment from "moment"; 
+import nodemailer from "nodemailer";
+import fs from "fs";
+import path from "path";
 
 export default class JobModel {
     constructor(id, companyName, jobCategory, designation, location, salary, position, skills, applyBy, jobPostDate, applicants){
@@ -19,14 +21,18 @@ export default class JobModel {
         return jobs
     }
 
+    static searchJobs(companyName){
+        return jobs.filter(job => (job.companyName).toLowerCase().includes(companyName.toLowerCase()))
+    }
+
     static getJobById(id){
         return jobs.find(job=> job.id == id);
     }
 
-    static addJob(job, applicants){
+    static addJob(job, applicants, recruiterEmail){
         const {companyName, jobCategory, designation, location, salary, position, skills, applyBy} = job;
         const id = jobs.length + 1;
-        const jobPostDate =  moment(new Date()).format("YYYY-MM-DD hh:mm A");
+        const jobPostDate =  new Date().toLocaleString().toUpperCase();
         const totalApplicants = applicants.length 
         const newJob = {
             id,
@@ -40,7 +46,8 @@ export default class JobModel {
             applyBy,
             jobPostDate,
             totalApplicants,
-            applicants
+            applicants,
+            recruiterEmail
         }
         jobs.push(newJob);
         return jobs
@@ -48,9 +55,15 @@ export default class JobModel {
 
     static updateJob(updateJob){
         const index = jobs.findIndex(job => job.id == updateJob.id);
-        const jobApplicats = jobs[index].applicants
+
+        const {totalApplicants, jobPostDate, applicants,recruiterEmail } = jobs[index]
+
         jobs[index] = updateJob;
-        jobs[index].applicants = jobApplicats;
+
+        jobs[index].totalApplicants = totalApplicants;
+        jobs[index].jobPostDate = jobPostDate;
+        jobs[index].applicants = applicants;
+        jobs[index].recruiterEmail = recruiterEmail
     }
 
     static deleteJob(id){
@@ -62,6 +75,31 @@ export default class JobModel {
         const job = jobs.find(job=> job.id == id)
         job.applicants.push({name, email, phone, resume})
         job.totalApplicants = job.applicants.length
+    }
+
+    static sendConfirmation =  (email)=>{
+        const transpoter = nodemailer.createTransport({
+            service: 'gmail',
+            auth:{
+                user: 'codingninjas2k16@gmail.com',
+                pass: 'slwvvlczduktvhdj',
+            },
+        })
+    
+        var htmlstream = fs.createReadStream(path.join("Public", "confirmation.html"));
+        
+        let mailOption = {
+            from:'codingninjas2k16@gmail.com',
+            to: email,
+            subject: 'Coding Ninjas',
+            html:htmlstream,
+            }
+        try{
+            const result =  transpoter.sendMail(mailOption);
+            console.log("Success: Email sent to "+ email);
+        }catch(err){
+            console.log("Email send failed due to: "+ err);
+        }
     }
 }
 
@@ -87,7 +125,7 @@ JobModel.addJob({
     "email": "Chotu@gmail.com",
     "phone":8789456546,
     "resume":"/resumes/resume.1.pdf"
-}])
+}], "rishav@gmail.com")
 
 JobModel.addJob({
     companyName:"Coding Ninjas", 
@@ -103,7 +141,7 @@ JobModel.addJob({
     "email": "rishav@gmail.com",
     "phone":8709438655,
     "resume":"/resumes/resume.1.pdf"
-}])
+}], "rishav@gmail.com")
 
 JobModel.addJob({
     companyName:"Amazon", 
@@ -119,4 +157,4 @@ JobModel.addJob({
     "email": "rishav@gmail.com",
     "phone":8709438655,
     "resume":"/resumes/resume.1.pdf"
-}])
+}], "rishav@gmail.com")

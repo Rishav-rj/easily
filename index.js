@@ -7,10 +7,13 @@ import {userValidation} from "./src/middlewares/userValidation.middleware.js"
 import session from "express-session";
 import { auth } from "./src/middlewares/userAuth.middleware.js";
 import { uploadFile } from "./src/middlewares/resumeUpload.middleware.js";
+import cookieParser from "cookie-parser";
+import { setLastVisit } from "./src/middlewares/lastVisit.middleware.js";
 
 export const app = express();
 
 app.use(express.static("./public"));
+app.use(cookieParser());
 
 app.use(
     session({
@@ -51,13 +54,19 @@ app.post('/postjob', auth, jobsController.postjob);
 
 app.get('/job/:id', jobsController.getJob)
 
-app.get('/job/update/:id',auth, jobsController.getUpdateJob)
+app.get('/job/update/:id', auth, jobsController.getUpdateJob)
 
-app.post('/job/update/',auth, jobsController.postUpdateJob)
+app.post('/job/update/',  auth, jobsController.postUpdateJob)
 
-app.get('/job/delete/:id',auth, jobsController.deleteJob)
+app.get('/job/delete/:id', auth, jobsController.deleteJob)
 
-app.get('/job/applicants/:id', auth, jobsController.getApplicants)
+app.get('/job/applicants/:id', auth, setLastVisit, jobsController.getApplicants)
 
 app.post('/job/apply/:id', uploadFile.single("resume"), jobsController.postApplyJob)
+
+app.post('/search', jobsController.seachedJobs)
+
+app.get('/404', jobsController.errorPage)
+
+app.get('*', jobsController.worngUrl);
 

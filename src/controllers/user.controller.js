@@ -1,3 +1,4 @@
+import JobModel from "../models/job.model.js";
 import UserModel from "../models/user.model.js";
 
 export default class UserController {
@@ -26,7 +27,8 @@ export default class UserController {
         req.session.userEmail = email;
         let userName = UserModel.userName(req.session.userEmail)
         req.session.userName = userName
-        res.redirect('/jobs');
+        const jobs = JobModel.getJobs()
+        res.redirect('/jobs')
     }
 
     logout(req, res) {
@@ -34,7 +36,7 @@ export default class UserController {
           if (err) {
             console.log(err);
           } else {
-            res.redirect('/login');
+            res.redirect('/');
           }
         });
     }

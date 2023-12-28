@@ -61,14 +61,15 @@
                     <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                       Recruiter
                     </a>
-                  <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="/login">Login</a></li>
+                    <ul class="dropdown-menu">
+                      <li><a class="dropdown-item" href="/login">Login</a></li>
+                      <li><a class="dropdown-item" href="/404">Post a job</a></li>
                   </ul>
                 <%} %>
               </li>
             </ul>
-            <form class="d-flex" role="search">
-              <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+            <form action="/search" method="post" class="d-flex" role="search">
+              <input class="form-control me-2" type="search" name="company" placeholder="Search" aria-label="Search">
               <button class="btn btn-outline-success" type="submit">Search</button>
             </form>
           </div>
